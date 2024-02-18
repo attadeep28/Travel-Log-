@@ -1,6 +1,6 @@
 # Ignore node_modules directory
 node_modules/
-
+.nyc_output/
 # Ignore log files
 *.log
 
@@ -10,3 +10,4 @@ node_modules/
 
 # Ignore environment specific files
 .env
+
