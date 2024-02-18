@@ -1,0 +1,63 @@
+<div class="sidebar">
+  <div class="destination-logo">
+    <!-- Add your destination logo image here -->
+    <img
+      src="https://travel-pro-eight.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdestination.9daa7637.png&w=128&q=75"
+      alt="Destination Logo"
+    />
+  </div>
+  <div class="search-container">
+    <form class="d-flex" action="/search" method="post" id="search-form">
+      <input
+        class="form-control me-3"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+        id="search-input"
+        name="key"
+        autocomplete="off"
+      />
+    </form>
+    <div class="search-results" style="max-width: 265px">
+      <ul class="list-group" id="result"></ul>
+    </div>
+  </div>
+  <ul class="sidebar-menu">
+    <li>
+      <a href="/dashboard"><i class="bi bi-passport"></i>Latest Posts</a>
+    </li>
+    <li>
+      <a href="/uploadPost/<%= locals.user._id %>"
+        ><i class="bi bi-file-plus"></i>create post</a
+      >
+    </li>
+    <li>
+      <a href="/profile/<%= locals.user._id %>"
+        ><i class="bi bi-stickies-fill"></i>My posts</a
+      >
+    </li>
+    <li>
+      <a href="/likedpost/<%= locals.user._id %>"><i class="bi bi-heart-fill"></i>Liked Posts</a>
+    </li>
+    <li>
+      <a href="#"><i class="bi bi-airplane-engines-fill"></i>Travel Pro</a>
+    </li>
+    <li>
+      <a href="/logout"><i class="bi bi-box-arrow-left"></i>Logout</a>
+    </li>
+  </ul>
+
+  <div class="container" id="profile">
+    <img
+      src="<%= locals.user.profileImageURL %>"
+      style="
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        margin-left: 20px;
+        object-fit: cover;
+      "
+    />
+    <h5 style="margin-left: 20px"><%= locals.user.Username %></h5>
+  </div>
+</div>

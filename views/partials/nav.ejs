@@ -1,0 +1,141 @@
+<nav
+  class="navbar bg-body-tertiary shadow-sm p-3 mb-5 bg-body-tertiary"
+  id="navbar"
+>
+  <div class="container">
+    <% if (locals.user) { %>
+    <a class="navbar-brand" href="/dashboard">
+      <img
+        src="/images/logo4w.png"
+        alt="Bootstrap"
+        width="auto"
+        height="60"
+        style="border-radius: 0"
+      />
+    </a>
+    <% } else { %>
+    <a class="navbar-brand" href="/">
+      <img
+        src="/images/logo4w.png"
+        alt="Bootstrap"
+        width="auto"
+        height="60"
+        style="border-radius: 0"
+      />
+    </a>
+    <%}%>
+    <div>
+      <form class="d-flex" action="/search" method="post" id="search-form">
+        <input
+          class="form-control me-3"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          id="search-input"
+          name="key"
+          autocomplete="off"
+        />
+      </form>
+      <div
+        style="
+          display: flex;
+          position: absolute;
+          flex-direction: column;
+          max-width: 265px;
+          color: black;
+          background-color: white;
+        "
+      >
+        <ul class="list-group" id="result" style="z-index: 1; border: 0"></ul>
+      </div>
+    </div>
+
+    <% console.log(locals.user) %> <% if (locals.user) { %>
+    <div class="buttons">
+      <a class="btn btn-light btn-sm" href="/dashboard"> Dashboard </a>
+      <a type="button" class="btn btn-outline-light btn-sm" onclick="logout()">
+        Logout
+      </a>
+      <a href="/profile/<%= locals.user._id %>">
+        <img
+          src="<%= locals.user.profileImageURL %>"
+          style="
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-left: 20px;
+            object-fit: cover;
+          "
+        />
+      </a>
+    </div>
+    <% } else { %>
+    <div class="buttons">
+      <button type="button" class="btn btn-light btn-sm" onclick="login()">
+        Login
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-light btn-sm"
+        onclick="signup()"
+      >
+        Sign Up
+      </button>
+    </div>
+    <% } %>
+  </div>
+</nav>
+
+<% if (locals.error) { %>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong> <%= locals.error %> </strong>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+<% } %>
+
+<script>
+  function login() {
+    window.location.href = "/login";
+  }
+  function signup() {
+    window.location.href = "/signup";
+  }
+
+  function logout() {
+    window.location.href = "/logout";
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("search-input");
+    const resultDiv = document.querySelector("#result");
+
+    searchInput.addEventListener("input", function () {
+      const searchTerm = searchInput.value;
+      fetch(`/search?title=${searchTerm}`)
+        .then((response) => response.json())
+        .then((data) => {
+          resultDiv.innerHTML = "";
+          data.forEach((post) => {
+            const postElement = document.createElement("li");
+            postElement.classList.add("list-group-item");
+            postElement.setAttribute("id", post._id);
+            postElement.addEventListener("click", function () {
+              window.location.href = `/viewpost/${post._id}`;
+            });
+            postElement.innerHTML = `
+            ${post.title}
+          `;
+            resultDiv.appendChild(postElement);
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching search results:", error);
+        });
+    });
+  });
+</script>

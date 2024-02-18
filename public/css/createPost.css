@@ -1,0 +1,23 @@
+.buttons, #search-form {
+    visibility: hidden;
+}
+
+body {
+    font-family: "Nunito", sans-serif;
+    color: rgb(51, 51, 51);
+}
+
+.card {
+    border: none;
+}
+
+h4 {
+    color: rgb(245, 151, 10);
+}
+
+
+#navbar {
+    background-color: #051c48 !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}

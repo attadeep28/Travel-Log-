@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Post</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/createPost.css" />
+
+    <script
+      src="https://cdn.tiny.cloud/1/gxpuvlrldetac5uoz7ss53ao47siwkgtmo6a6wfrv70g4fxc/tinymce/5/tinymce.min.js"
+      referrerpolicy="origin"
+    ></script>
+    <script>
+      tinymce.init({
+        selector: ".editor",
+        height: 500,
+        plugins: [
+          "advlist autolink lists link image charmap print preview anchor",
+          "searchreplace visualblocks code fullscreen",
+          "insertdatetime media table paste code help wordcount",
+        ],
+        toolbar:
+          "undo redo | formatselect | " +
+          "bold italic backcolor | alignleft aligncenter " +
+          "alignright alignjustify | bullist numlist outdent indent | " +
+          "removeformat | help",
+        content_css: "//www.tiny.cloud/css/codepen.min.css",
+      });
+    </script>
+  </head>
+  <body>
+    <% include('./partials/nav') %>
+    <div class="container my-5">
+      <div class="card p-5">
+        <h4 class="text-center mb-4">
+          Share Your Amazing Travel Experience and let the world wander through
+          the chapters of your journey.
+        </h4>
+        <form
+          method="post"
+          enctype="multipart/form-data"
+          action="/edit/<%= post._id %>"
+        >
+          <div class="mb-3">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Title"
+              name="title"
+              aria-label="Post Title"
+              value="<%= post.title %>"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="location"
+              name="location"
+              aria-label="Post Title"
+              value="<%= post.location %>"
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Short Description of 1 or 2 line"
+              name="description"
+              value="<%= post.description %>"
+              aria-label="Post Title"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Upload Cover Image</label>
+            <input
+              class="form-control"
+              type="file"
+              id="formFile"
+              name="coverImage"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="editor" class="form-label"
+              >Share Your Travel Experience!</label
+            >
+            <textarea class="editor form-control" rows="6" name="body">
+<%= post.body %></textarea
+            >
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-dark btn-lg"
+            style="position: absolute; right: 4%"
+           >
+            Update Post
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

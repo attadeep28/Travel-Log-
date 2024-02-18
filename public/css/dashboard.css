@@ -1,0 +1,274 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+i{
+    margin-right: 15px;
+}
+.sidebar {
+    width: 350px;
+    background-color: #051c48;
+    padding-top: 1.75rem;
+    position: fixed;
+    border-radius: 0 2rem 2rem 0;
+    height: 100vh;
+    color: white;
+
+
+    transition: width .3s ease-in-out;
+
+    z-index: 1000;
+}
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-control {
+    max-width: 265px;
+}
+
+.destination-logo {
+    text-align: center;
+    margin-bottom: 20px;
+    /* Add margin as needed */
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 10px;
+    /* Add margin between menu items */
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    padding: 0.625rem 1.25rem;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+    overflow: hidden;
+    font-size: 1.3rem;
+    /* Smooth transition effect */
+}
+
+.sidebar-menu li a:hover {
+    background-color: #5db9ea;
+    color: #000;
+    border-radius: 0.3rem;
+    transition: transform 1ms;
+    padding: 1rem;
+    transition-timing-function: ease;
+}
+
+
+.container1 {
+    display: flex;
+    flex-direction: row;
+}
+
+.content {
+    margin-left: 350px;
+    /* Adjust based on sidebar width */
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+
+
+
+
+body {
+    font-family: "Nunito", sans-serif;
+    color: rgb(51, 51, 51);
+
+}
+
+.buttons button {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.card a {
+    text-decoration: none;
+    color: black;
+}
+
+.card h5 a span {
+    display: block;
+    text-transform: uppercase;
+    -webkit-transition: 0.2s all ease-in-out;
+    transition: 0.2s all ease-in-out;
+    cursor: pointer;
+    font-size: 18px !important;
+    line-height: 1.2em;
+    color: #333333;
+    -webkit-transition: 0.1s all ease-in-out;
+    transition: 0.1s all ease-in-out;
+
+
+}
+
+.card-title {
+    :hover {
+        color: rgb(245, 151, 10) !important;
+    }
+}
+
+#see-more-btn {
+    text-decoration: none;
+    font-size: 1.8em;
+
+    :hover {
+        border-color: rgb(245, 151, 10);
+        box-shadow: rgba(33, 33, 33, 0.1) 0px 0px 11px;
+    }
+}
+
+#see-more-btn span {
+    font-size: 14px;
+    padding: 0.4em 1.5em;
+    border-radius: 30px;
+    border: 1px solid rgb(237, 237, 237);
+    text-transform: uppercase;
+    transition: all 0.2s ease-in-out 0s;
+    cursor: pointer;
+    line-height: 1.5em;
+    color: rgb(51, 51, 51);
+
+}
+
+.btn-div {
+
+    display: flex;
+    margin-bottom: 2em;
+    margin-top: auto;
+    margin-left: auto;
+
+}
+
+.card {
+    overflow: hidden;
+}
+
+.card-img-top {
+    transform-origin: 50% 50% 0px !important;
+    transition: transform 1.3s ease 0s, opacity 0.5s ease-in-out 0s !important;
+}
+
+.card-img-top:hover {
+    transform: scale(1.1) !important;
+}
+
+.date {
+    color: rgb(168, 168, 168);
+    ;
+}
+
+.place {
+    text-transform: uppercase;
+    color: rgb(245, 151, 10);
+}
+
+.card {
+    margin: 10px;
+}
+
+#main-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#heading {
+    text-transform: uppercase;
+
+    position: relative;
+    font-size: 3em;
+    margin-bottom: 1em;
+}
+
+
+
+
+#search-input {
+    width: max-content;
+    padding-right: 40px;
+    width: max-content;
+    border-radius: 20px;
+}
+
+#search-input:focus {
+    border-radius: 0px;
+}
+
+.card-img-top {
+    height: 234px;
+}
+
+
+h2 {
+    line-height: 2em;
+    position: relative;
+    /* Add position relative to enable positioning of the pseudo-element */
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    width: 18%;
+    height: 4px;
+    left: 0;
+    bottom: -0.5em;
+    background: #FAA41F;
+}
+
+#navbar {
+    background-color: #051c48 !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+.btn-div {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+li {
+    border: 0 !important;
+}
+
+li:hover {
+    background-color: #c3c3c3;
+    transition: background-color 0.5s ease;
+    /* Add smooth transition */
+}
+
+
+#profile{
+    justify-content: start;
+    text-align: center;
+    display: flex;
+    margin-top: 20%;
+    margin-bottom: 10%;
+    width: 350px;
+    align-items: center;
+}
+
+.card-img-top{
+    height: 179px;
+    object-fit: cover;
+}
+
+.card i{
+    margin: 2px;
+}

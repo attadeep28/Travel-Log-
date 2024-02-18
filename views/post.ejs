@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Travel Log</title>
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous"
+      />
+      <link
+        href="
+https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css
+"
+        rel="stylesheet"
+      />
+      <link rel="stylesheet" href="/css/post.css" />
+    </head>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+
+    <div class="container" id="posts">
+      <nav>
+        <ul>
+          <% if (current_user_id) { %>
+          <li><a href="/dashboard" id="home-link">Home</a></li>
+          <% } else { %>
+          <li><a href="/" id="home-link">Home</a></li>
+          <% } %>
+          <li><%= post.title %></li>
+        </ul>
+      </nav>
+
+      <div
+        class="cover-img"
+        style="
+          background: url('<%= post.coverImageURL %>') 100% center / cover
+            no-repeat;
+        "
+      ></div>
+
+      <div class="jsx-3501204808 blog-details__blog-information">
+        <nav aria-label="breadcrumb" class="jsx-3501204808 breadcrumb">
+          <ul class="place-ul">
+            <li class="place-li"><%= post.location%></li>
+            <li class="date-li"><%= post.updatedAt.toDateString()%></li>
+          </ul>
+          <div>
+            <h4 style="position: absolute; right: 10%">
+              <i class="bi bi-chat-left-fill"></i> <%= post.comments.length %>
+              <button
+                style="border: none; background-color: transparent"
+                id="likebtn"
+              >
+                <% if (current_user_id) { %> <% if
+                (post.likes.includes(current_user_id)) { %>
+                <i class="bi bi-suit-heart-fill" style="color: red"></i> <%=
+                post.likes.length %> <% } else { %>
+                <i class="bi bi-suit-heart-fill" style="color: black"></i> <%=
+                post.likes.length %> <% } %> <% } else { %>
+                <i class="bi bi-suit-heart-fill" style="color: black"></i> <%=
+                post.likes.length %> <% } %>
+              </button>
+            </h4>
+          </div>
+        </nav>
+        <h1 class="post-heading"><%= post.title%></h1>
+        <p class="jsx-3501204808 blog-details__sub-heading">
+          <%= post.description%>
+        </p>
+
+        <div class="profile">
+          <div style="width: 20%; display: flex">
+            <img
+              src="<%= post.createdBy.profileImageURL %>"
+              alt="Cultuur en natuur snuiven in Zuid-Bohemen by Sandra Roodenburg"
+              width="150px"
+              height="150px"
+              class="jsx-3501204808"
+            />
+          </div>
+
+          <div class="author-information">
+            <div
+              style="
+                width: 80%;
+                display: flex;
+                flex-direction: column;
+                padding-left: 3em;
+              "
+            >
+              <p style="margin-bottom: 1.25em">
+                @<%= post.createdBy.Username %>
+              </p>
+              <p style="line-height: 1.4em">
+                <span
+                  style="
+                    font-weight: 600;
+                    display: inline-block;
+                    margin-right: 0.5em;
+                  "
+                  >Created By:</span
+                >
+
+                <%= post.createdBy.Name %>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="content"><%- post.body %></div>
+      </div>
+    </div>
+
+    <div class="container" id="heading">
+      <% if (current_user_id) { %>
+
+      <div class="container">
+        <form
+          id="commentForm"
+          method="post"
+          action="/comments/<%= post._id %>/<%= current_user_id %>"
+        >
+          <div class="form-group">
+            <textarea
+              class="form-control"
+              id="commentText"
+              name="text"
+              rows="3"
+              required
+              placeholder="write your comment"
+            ></textarea>
+          </div>
+          <button
+            class="btn btn-dark mt-3 mb-3"
+            style="position: absolute; right: 10%"
+            type="submit"
+          >
+            Add Comment
+          </button>
+        </form>
+      </div>
+
+      <% } else { %>
+      <a
+        class="btn btn-dark"
+        style="position: absolute; right: 5%"
+        href="/login"
+      >
+        Login To Comment
+      </a>
+      <% } %>
+    </div>
+
+    <div class="container p-4 mt-4">
+      <h2>Comments(<%= post.comments.length %>)</h2>
+      <div class="colored-line"></div>
+      <div class="comments">
+        <% post.comments.forEach(comment => { %>
+        <div class="card m-2">
+          <div class="card-header">
+            <img
+              src="<%= comment.createdBy.profileImageURL %>"
+              style="width: 60px; height: 60px; object-fit: cover"
+            />
+            <strong class="m-2"><%= comment.createdBy.Username %></strong>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-2">
+              <p><%= comment.text %></p>
+              <footer class="blockquote-footer mt-3">
+                <%= comment.createdAt.toDateString() %>
+              </footer>
+            </blockquote>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <script>
+      const likebtn = document.querySelector("#likebtn");
+      likebtn.addEventListener("click", () => {
+        console.log("Clicked");
+        if (`<%=current_user_id %>`) {
+          fetch(
+            `http://localhost:3000/like/<%= post._id %>/<%= current_user_id %>`
+          )
+            .then((res) => res.json())
+            .then((data) => {
+              alert(data.message);
+              window.location.reload();
+            })
+            .catch((err) => {
+              alert("You are not logged in");
+            });
+        } else {
+          alert("Your Are Not Logged In");
+        }
+      });
+    </script>
+  </body>
+</html>
