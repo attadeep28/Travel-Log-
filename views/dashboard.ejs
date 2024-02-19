@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Travel Log</title>
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/css/dashboard.css" />
     <link
       href="
@@ -19,7 +19,9 @@ https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-  
+    <link rel="stylesheet" href="/css/chat.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
   </head>
   <body>
     <div class="container1">
@@ -67,6 +69,135 @@ https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css
 
         <% }) %>
       </div>
+      <!-- Add an image to open/close the chat -->
+      <img
+        src="/images/speak.png"
+        id="toggleChatButton"
+        style="cursor: pointer"
+        width="70px"
+      />
+
+      <!-- Chat box modal -->
+      <div id="chatModal" class="chat-modal">
+        <div class="chat-header">
+          <h6>Chat With Other Travelers Like you</h3>
+         
+        </div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <input
+          type="text"
+          id="chatInput"
+          class="chat-input"
+          placeholder="Type your message..."
+          max="500"
+        />
+        <button id="sendButton" class="send-button">Send</button>
+      </div>
+
+      <script
+        src="https://cdn.socket.io/4.7.4/socket.io.min.js"
+        integrity="sha384-Gr6Lu2Ajx28mzwyVR8CFkULdCU7kMlZ9UthllibdOSo6qAiN+yXNHqtgdTvFXMT4"
+        crossorigin="anonymous"
+      ></script>
+
+      <script src="/socket.io/socket.io.js"></script>
+      <script>
+        const socket = io();
+        const chatModal = document.getElementById("chatModal");
+
+        // Add event listener to toggle the chat box
+        document
+          .getElementById("toggleChatButton")
+          .addEventListener("click", () => {
+            if (chatModal.style.display === "block") {
+              chatModal.style.display = "none";
+            } else {
+              chatModal.style.display = "block";
+              // Scroll to the bottom of the chat messages when the chat opens
+              scrollToBottom();
+            }
+          });
+
+        // Add event listener to send messages on button click
+        document.getElementById("sendButton").addEventListener("click", () => {
+          sendMessage(); // Pass true to indicate that this is a user message
+        });
+
+        // Add event listener to send messages on 'Enter' key press
+        document
+          .getElementById("chatInput")
+          .addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+              sendMessage();
+            }
+          });
+
+        // Listen for incoming messages
+        socket.on("chatMessage", (message, user) => {
+          // Assuming you have a variable 'currentUserUsername' that stores the current user's username
+          const isUser = user === "<%= locals.user.Username %>";
+
+          const chatMessages = document.getElementById("chatMessages");
+
+          // Create a timestamp using Moment.js
+          const timestamp = moment().format("h:mm A");
+
+          // Create a new message container element
+          const messageContainer = document.createElement("div");
+          messageContainer.className = isUser
+            ? "message-container user-message"
+            : "message-container other-message";
+
+          const usernameElement = document.createElement("p");
+
+          usernameElement.textContent = "<%= locals.user.Username %>";
+
+          usernameElement.className = "username"; // Add a class for styling if needed
+
+          // Create a new message element with timestamp
+          const messageElement = document.createElement("p");
+          messageElement.textContent = message;
+
+          // Create a timestamp element with lower font size
+          const timestampElement = document.createElement("p");
+          timestampElement.textContent = timestamp;
+          timestampElement.className = "timestamp";
+
+          // Append the message and timestamp to the container
+          if (!isUser) {
+            messageContainer.appendChild(usernameElement);
+          }
+          messageContainer.appendChild(messageElement);
+          messageContainer.appendChild(timestampElement);
+
+          // Append the container to the chat messages
+          chatMessages.appendChild(messageContainer);
+
+          // Scroll to the bottom of the chat messages
+          scrollToBottom();
+        });
+
+        // Function to scroll to the bottom of the chat messages
+        function scrollToBottom() {
+          const chatMessages = document.getElementById("chatMessages");
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Function to send a message
+        function sendMessage() {
+          const messageInput = document.getElementById("chatInput");
+          const message = messageInput.value.trim(); // Trim spaces
+
+          if (message) {
+            // Get the JWT token from wherever you store it (e.g., cookies)
+            const user = "<%= locals.user.Username %>";
+
+            // Only emit the message if it's not empty
+            socket.emit("chatMessage", message, user);
+            messageInput.value = ""; // Clear input field
+          }
+        }
+      </script>
     </div>
 
     <script>

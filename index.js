@@ -115,6 +115,7 @@ app.post("/search", async (req, res) => {
   }
 });
 
+
 app.use("/", userRoute);
 app.use("/", postRoute);
 app.use("/", profileRoute);

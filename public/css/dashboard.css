@@ -231,6 +231,10 @@ h2::after {
     bottom: -0.5em;
     background: #FAA41F;
 }
+h6{
+    text-align: center;
+}
+
 
 #navbar {
     background-color: #051c48 !important;

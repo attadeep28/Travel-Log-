@@ -8,6 +8,7 @@ var app = require("../index");
 var connect = require("../services/connectToDb"); // Add this line to import connectDB
 var debug = require("debug")("express-test:server");
 var http = require("http");
+var socketIO = require("socket.io");
 // Add this line to import socket.io
 
 /**
@@ -24,6 +25,23 @@ connect()
   .then(() => {
     // Create HTTP server.
     server = http.createServer(app); // Assign the server variable here
+    var io = socketIO(server);
+
+    io.on("connection", (socket) => {
+      console.log("A user connected");
+
+      // Handle chat messages
+      socket.on("chatMessage", (message, user) => {
+        // Decode the token to get the username
+        // Broadcast the message and username to all connected clients
+        io.emit("chatMessage", message, user);
+      });
+
+      // Handle disconnect
+      socket.on("disconnect", () => {
+        console.log("A user disconnected");
+      });
+    });
 
     /**
      * Listen on provided port, on all network interfaces.

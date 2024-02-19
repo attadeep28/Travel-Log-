@@ -1,0 +1,142 @@
+#toggleChatButton {
+    position: fixed;
+    width: 60px;
+
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+#toggleChatButton:hover {
+    width: 61px;
+}
+
+/* Chat box modal */
+.chat-modal {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    display: none;
+    width: 325px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.chat-header {
+    margin-bottom: 5px;
+}
+
+.chat-header span {
+    font-size: 12px;
+}
+
+.chat-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.left-toggle, .right-toggle {
+    display: flex;
+    margin: 5px;
+    width: 50%;
+    align-items: center;
+}
+
+.left-toggle img, .right-toggle img {
+    width: 20px;
+    margin: 0 5px;
+}
+
+/* Chat messages display area */
+.chat-messages {
+    height: 250px;
+    overflow-y: auto;
+}
+
+.chat-messages::-webkit-scrollbar {
+    display: none;
+}
+
+/* Input field for typing messages */
+.chat-input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* Button to send messages */
+.send-button {
+    width: 100%;
+    padding: 8px;
+    background-color: #051c48;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Message container style */
+.message-container {
+    font-size: 14px;
+    width: fit-content;
+    min-width: 30%;
+    max-width: 95%;
+    background-color: rgb(245, 151, 10);
+    /* Light blue color */
+    border-radius: 10px;
+    margin: 5px 0;
+    /* Top and bottom margin of 5px */
+    padding: 7.5px 10px;
+    /* Adjust padding as needed */
+    /* text-align: justify; Align text to justify */
+    overflow: hidden;
+    /* Hide overflow content */
+    overflow-wrap: break-word;
+    /* Break words if needed */
+    text-overflow: ellipsis;
+    /* Display ellipsis for overflowed content */
+    color: white;
+}
+
+.message-container p {
+    margin-bottom: 0;
+}
+
+.username {
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.user-message {
+    background-color: #F4CE14;
+    /* Light blue color for user messages */
+    margin-left: auto;
+}
+
+.other-message {
+    background-color: #FF4B91;
+    /* Light gray color for others' messages */
+}
+
+.expenseGPT-message {
+    background-color: #d7f7d7;
+    /* Light green color for expenseGPT messages */
+}
+
+/* Timestamp style */
+.timestamp {
+    font-size: 9px;
+    /* Lower font size for the timestamp */
+    margin-top: 3px;
+    /* Add spacing between message and timestamp */
+    color: #666;
+    /* Adjust timestamp text color */
+}

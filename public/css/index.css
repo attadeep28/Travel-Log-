@@ -178,3 +178,13 @@
             border-radius: 20px;
         }
     }
+
+   
+      #chatButton {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999; /* Ensure it's on top of other elements */
+      }
+    
+      
