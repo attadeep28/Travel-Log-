@@ -7,6 +7,7 @@ const app = require("../../index");
 const Post = require("../../models/post");
 const jwt = require("jsonwebtoken");
 const request = supertest(app);
+const { deleteFileFromS3 } = require("../../services/S3_Upload");
 
 describe("Profile Route", () => {
   beforeEach(() => {
@@ -71,15 +72,35 @@ describe("Profile Route", () => {
   });
 
   describe("GET /delete/:id/:user_id", () => {
-    it("should delete post and redirect", async () => {
-      sinon.stub(Post, "findByIdAndDelete");
-      const res = await request
-        .get("/delete/65c1f8ba5155856db9a5fasssas64/65c1f69043e33439ecb908f4")
-        .set("Cookie", "token=fakeToken");
+    // it("should delete post and redirect", async () => {
+    //   sinon.stub(Post, "findByIdAndDelete");
+    //   sinon.stub(Post, 'findById').resolves([]);
+    //   const res = await request
+    //     .get("/delete/65c1f8ba5155856db9a5fasssas64/65c1f69043e33439ecb908f4")
+    //     .set("Cookie", "token=fakeToken");
 
-      expect(res.status).to.equal(302);
-      expect(res.header.location).to.equal("/profile/65c1f69043e33439ecb908f4");
+    //   expect(res.status).to.equal(302);
+    //   expect(res.header.location).to.equal("/profile/65c1f69043e33439ecb908f4");
+    // });
+
+    it("should delete the post and redirect to user profile page", async () => {
+      const postToDeleteId = "65d1eccd707b71f5ee866d2d";
+      const userId = "65c1f8ba5155856db9a5fb64";
+      const mockPost = {
+        _id: postToDeleteId,
+        coverImageURL: "https://example.com/cover-image.jpg",
+      };
+      sinon.stub(Post, "findById").resolves(mockPost);
+      sinon.stub(deleteFileFromS3);
+      sinon.stub(Post, "findByIdAndDelete").resolves();
+
+      const res = await request
+        .get(`/delete/${postToDeleteId}/${userId}`)
+        .set("Cookie", "token=fakeToken");
+      expect(res.status).to.eql(302);
+      expect(res.header.location).to.eql(`/profile/${userId}`);
     });
+
     it("should give status 500 while deleting post and redirect", async () => {
       sinon
         .stub(Post, "findByIdAndDelete")

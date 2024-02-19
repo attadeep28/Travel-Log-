@@ -22,7 +22,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    padding: 20px;
 }
 
 .chat-header {
@@ -90,10 +90,10 @@
     max-width: 95%;
     background-color: rgb(245, 151, 10);
     /* Light blue color */
-    border-radius: 10px;
+    border-radius: 30px;
     margin: 5px 0;
     /* Top and bottom margin of 5px */
-    padding: 7.5px 10px;
+    padding: 10px;
     /* Adjust padding as needed */
     /* text-align: justify; Align text to justify */
     overflow: hidden;
@@ -113,22 +113,18 @@
     font-size: 11px;
     font-weight: bold;
     margin-bottom: 3px;
+
 }
 
 .user-message {
     background-color: #F4CE14;
-    /* Light blue color for user messages */
     margin-left: auto;
+    border-end-end-radius: 0px;
 }
 
 .other-message {
-    background-color: #FF4B91;
-    /* Light gray color for others' messages */
-}
-
-.expenseGPT-message {
-    background-color: #d7f7d7;
-    /* Light green color for expenseGPT messages */
+    border-start-start-radius: 0px;
+    background-color: #0d6efd;
 }
 
 /* Timestamp style */

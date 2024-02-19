@@ -4,6 +4,11 @@ const router = Router();
 const { loginRequired } = require("../middlewares/authorization");
 const multer = require("multer");
 const path = require("path");
+const {
+  deleteFile,
+  uploadFileToS3,
+  deleteFileFromS3,
+} = require("../services/S3_Upload");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.resolve(`./public/uploads/`));
@@ -42,7 +47,10 @@ router.get("/likedpost/:id", loginRequired("token"), async (req, res) => {
 router.get("/delete/:id/:user_id", loginRequired("token"), async (req, res) => {
   try {
     const postToDeleteId = req.params.id;
+    const post = await Post.findById(postToDeleteId);
+    await deleteFileFromS3(post.coverImageURL);
     await Post.findByIdAndDelete(postToDeleteId);
+
     res.redirect(`/profile/${req.params.user_id}`);
   } catch (error) {
     console.error("Error while deleting the post:", error);
