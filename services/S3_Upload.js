@@ -40,7 +40,7 @@ async function deleteFileFromS3(fileURL) {
   const fileName = urlParts[urlParts.length - 1];
 
   const deleteParams = {
-    Bucket: process.env.S3_BUCKET, // Assuming you have the bucket name in an environment variable
+    Bucket: process.env.S3_BUCKET, 
     Key: fileName,
   };
 
@@ -49,7 +49,7 @@ async function deleteFileFromS3(fileURL) {
     console.log("File deleted successfully:", data);
   } catch (err) {
     console.error("Error deleting file:", err);
-    throw err; // Re-throw the error to handle it in the calling function
+    throw err; 
   }
 }
 

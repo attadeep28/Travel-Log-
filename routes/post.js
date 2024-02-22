@@ -5,21 +5,8 @@ const multer = require("multer");
 const path = require("path");
 const { uploadFileToS3, deleteFile } = require("../services/S3_Upload");
 const { loginRequired } = require("../middlewares/authorization");
-const {
-  checkForAuthenticationCookie,
-} = require("../middlewares/authentication");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.resolve(`./public/uploads/`));
-  },
-  filename: function (req, file, cb) {
-    const fileName = `${Date.now()}-${file.originalname}`;
-    cb(null, fileName);
-  },
-});
-
-const upload = multer({ storage: storage });
+const upload = multer({ dest: "uploads/" });
 
 router.post(
   "/comments/:post_id/:commenter_id",

@@ -41,13 +41,12 @@ input {
     width: 100%;
 }
 
-#search-form {
-
-    visibility: hidden;
+#search-form input {
+    display: none;
 }
 
 .buttons {
-    visibility: hidden;
+    display: none;
 }
 
 
@@ -115,13 +114,15 @@ a {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.01);
 
 }
-#form-div{
+
+#form-div {
     border-radius: 8px;
 
     border: 1px solid white;
 
 
 }
+
 input:focus {
     outline: none I !important;
     background-color: transparent !important;
@@ -139,4 +140,17 @@ body {
     background-color: transparent !important;
     border-bottom: none !important;
     box-shadow: none !important;
+}
+
+@media screen and (max-width: 480px) {
+    .main div {
+        padding: 10px;
+    }
+
+    #form-div {
+        border: none;
+    }
+    .form-group{
+        margin-bottom: 0px !important;
+    }
 }

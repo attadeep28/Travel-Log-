@@ -4,22 +4,9 @@ const router = Router();
 const { loginRequired } = require("../middlewares/authorization");
 const multer = require("multer");
 const path = require("path");
-const {
-  deleteFile,
-  uploadFileToS3,
-  deleteFileFromS3,
-} = require("../services/S3_Upload");
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.resolve(`./public/uploads/`));
-  },
-  filename: function (req, file, cb) {
-    const fileName = `${Date.now()}-${file.originalname}`;
-    cb(null, fileName);
-  },
-});
+const {deleteFile,uploadFileToS3,deleteFileFromS3} = require("../services/S3_Upload");
 
-const upload = multer({ storage: storage });
+const upload = multer({ dest: "uploads/" });
 
 router.get("/profile/:id", loginRequired("token"), async (req, res) => {
   try {

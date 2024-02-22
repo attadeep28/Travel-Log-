@@ -1,7 +1,4 @@
-const { redirect } = require("express"); // Import redirect function from Express
-const { validateToken } = require("../services/authentication");
 const secret = "$uperMan@123";
-const tokenExpiration = "3h";
 const JWT = require("jsonwebtoken");
 
 function loginRequired(cookieName) {

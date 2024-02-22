@@ -69,9 +69,10 @@ body {
     object-fit: fill;
 }
 
-img {
+#content img {
     border-radius: 1.5em;
     width: 100%;
+    height: auto;
 }
 
 #content {
@@ -110,23 +111,24 @@ nav ul {
 
 nav li {
     display: inline;
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
-nav a{
+nav a {
     text-decoration: none;
     color: #FAA41F;
 }
 
 
-nav{
+nav {
     padding: 10px;
     padding-bottom: 10px;
     font-weight: 600;
     font-size: 1.2em;
     margin-bottom: 20px;
 }
-#home-link::after{
+
+#home-link::after {
     display: inline-block;
     padding-right: 1.2em;
     padding-left: 1.2em;
@@ -136,4 +138,40 @@ nav{
 
 .post-title {
     /* Styles for the post title */
+}
+
+
+@media screen and (max-width: 480px) {
+    nav #search-input {
+        display: none !important;
+    }
+    nav .buttons a {
+      display: none;
+    }
+
+  
+    #posts {
+        padding: 1em;
+        padding-top: 0;
+    }
+
+    .cover-img {
+        height: 260px;
+        border-radius: 1.5em;
+        margin-bottom: 3em;
+    }
+
+    #like-comment {
+        position: relative !important;
+        margin-left: 1em !important;
+    }
+
+    .place-ul {
+        font-size: small !important;
+    }
+
+    #post-card {
+        width: 300px !important;
+        height: 300px  !important;
+    }
 }

@@ -12,6 +12,7 @@ function checkForAuthenticationCookie(cookieName) {
     
       res.locals.user = userPayload;
       req.user = userPayload;
+      
     } catch (error) {
       console.error(error);
     }

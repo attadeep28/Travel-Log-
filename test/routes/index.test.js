@@ -9,13 +9,6 @@ const jwt = require("jsonwebtoken");
 const request = supertest(app);
 
 describe("Index Routes", () => {
-  beforeEach(() => {
-    sinon.stub(jwt, "verify").returns({
-      _id: "65c20ad6756d2ed7f09a05f1",
-      Username: "attadeep@28",
-      profileImageURL: "https://attu.s3.amazonaws.com/1707215573892-Cover",
-    });
-  });
   afterEach(() => {
     sinon.restore();
   });
@@ -32,9 +25,40 @@ describe("Index Routes", () => {
   });
 
   describe("GET /dashboard", () => {
+    afterEach(() => {
+      sinon.restore();
+    });
+
+    it("should redirect to login page if user is not authenticated", async () => {
+      sinon.stub(jwt, "verify").throws(new Error("JWT Error"));
+      sinon.stub(jwt, "sign").returns("fakeToken");
+      const res = await request
+        .get("/dashboard")
+        .set("Cookie", "token=fakeToken");
+      expect(res.status).to.equal(302); // Expecting redirect status
+      expect(res.header.location).to.equal("/login"); // Assuming the login page redirects to '/login'
+    });
+
+    it("should redirect to login", async () => {
+      sinon.stub(jwt, "verify").returns({
+        _id: "65c20ad6756d2ed7f09a05f1",
+        Username: "attadeep@28",
+        profileImageURL: "https://attu.s3.amazonaws.com/1707215573892-Cover",
+      });
+      sinon.stub(jwt, "sign").returns("fakeToken");
+      const res = await request.get("/dashboard");
+      expect(res.status).to.equal(302);
+      expect(res.header.location).to.equal("/login");
+    });
+
     it("should render the dashboard page", async () => {
       sinon.stub(Post, "find").returns({
         sort: sinon.stub().resolves([]),
+      });
+      sinon.stub(jwt, "verify").returns({
+        _id: "65c20ad6756d2ed7f09a05f1",
+        Username: "attadeep@28",
+        profileImageURL: "https://attu.s3.amazonaws.com/1707215573892-Cover",
       });
       sinon.stub(jwt, "sign").returns("fakeToken");
       const res = await request

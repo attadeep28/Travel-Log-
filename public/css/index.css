@@ -171,20 +171,69 @@
 
 
 
-    @media screen and (min-width: 480px) {
-        #search-input {
-            padding-right: 40px;
-            width: 100% !important;
-            border-radius: 20px;
+    @media screen and (max-width: 600px) {
+        nav #search-input {
+            display: none !important;
+        }
+
+        nav .buttons a {
+            font-size: xx-small !important;
+        }
+
+        nav .buttons img {
+            width: 30px;
+            height: 30px;
+        }
+
+        #main-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center !important;
+        }
+
+        nav .navbar-brand img {
+            height: 50px;
+        }
+
+        #post-card {
+            width: 393px !important;
+            height: 540px !important;
+        }
+
+        #post-card .btn-div {
+            display: block !important;
         }
     }
 
-   
-      #chatButton {
+    @media screen and (max-width:1024px) {
+        #main-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+    }
+
+    @media screen and (max-width:980px) {
+        #main-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        #post-card {
+            width: 320px !important;
+            height: 500px !important;
+        }
+
+        #post-card .btn-div {
+            display: none;
+        }
+    }
+
+    #chatButton {
         position: fixed;
         bottom: 20px;
         right: 20px;
-        z-index: 9999; /* Ensure it's on top of other elements */
-      }
-    
-      
+        z-index: 9999;
+        /* Ensure it's on top of other elements */
+    }

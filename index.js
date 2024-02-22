@@ -2,34 +2,25 @@ require("dotenv").config();
 const path = require("path");
 const bodyParser = require("body-parser");
 const express = require("express");
-// const connectDB = require("./services/connectToDb");
 const cookiePaser = require("cookie-parser");
 const Post = require("./models/post");
 const userRoute = require("./routes/user");
 const postRoute = require("./routes/post");
 const profileRoute = require("./routes/profile");
-const {
-  checkForAuthenticationCookie,
-} = require("./middlewares/authentication");
+const {checkForAuthenticationCookie} = require("./middlewares/authentication");
 const { loginRequired } = require("./middlewares/authorization");
-
-// connectDB(true);
-
 const app = express();
-// const PORT = process.env.PORT || 8000;
-
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
+app.use(bodyParser.urlencoded({extended: true,}));
 app.use(cookiePaser());
 app.use(checkForAuthenticationCookie("token"));
 app.use(express.static(path.resolve("./public")));
+
+
+
 
 app.get("/", async (req, res) => {
   const posts = await Post.find({}).sort({ createdAt: -1 });
@@ -39,10 +30,12 @@ app.get("/", async (req, res) => {
   });
 });
 
+
 app.get("/dashboard", loginRequired("token"), async (req, res) => {
   const posts = await Post.find({}).sort({ createdAt: -1 });
   res.render("dashboard", { user: req.user, posts: posts });
 });
+
 
 app.get("/search", async (req, res) => {
   try {
@@ -115,13 +108,7 @@ app.post("/search", async (req, res) => {
   }
 });
 
-
 app.use("/", userRoute);
 app.use("/", postRoute);
 app.use("/", profileRoute);
-
-// app.listen(PORT, () => {
-//   console.log(`Listening on port ${PORT}`);
-// });
-
 module.exports = app;
