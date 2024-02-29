@@ -1,5 +1,5 @@
-const secret = "$uperMan@123";
-const JWT = require("jsonwebtoken");
+require("dotenv").config();
+const { verify } = require("jsonwebtoken");
 
 function loginRequired(cookieName) {
   return (req, res, next) => {
@@ -8,7 +8,7 @@ function loginRequired(cookieName) {
       return res.status(401).redirect("/login"); // Change redirect to res.redirect
     }
     try {
-      const userPayload = JWT.verify(tokenCookieValue, secret);
+      const userPayload = verify(tokenCookieValue, process.env.secret);
       req.user = userPayload;
       return next();
     } catch (error) {

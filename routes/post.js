@@ -2,8 +2,8 @@ const { Router } = require("express");
 const Post = require("../models/post");
 const router = Router();
 const multer = require("multer");
-const path = require("path");
-const { uploadFileToS3, deleteFile } = require("../services/S3_Upload");
+
+const { uploadFileToS3} = require("../services/S3_Upload");
 const { loginRequired } = require("../middlewares/authorization");
 
 const upload = multer({ dest: "uploads/" });
@@ -43,6 +43,7 @@ router.post(
 
 router.get("/viewpost/:id", async (req, res) => {
   try {
+    
     const post = await Post.findById(req.params.id)
       .populate("createdBy") // Populate createdBy field of the post
       .populate({
@@ -73,8 +74,7 @@ router.post("/uploadPost", upload.single("coverImage"), async (req, res) => {
 
   // Upload file to S3
   const coverImageURL = await uploadFileToS3(bucketName, file);
-  // Delete file from local uploads folder
-  deleteFile(file.path);
+ 
   // Create the post with the cover image URL
   const post = await Post.create({
     body,
@@ -125,3 +125,7 @@ router.get("/like/:postId/:user_id", async (req, res) => {
 });
 
 module.exports = router;
+
+
+
+

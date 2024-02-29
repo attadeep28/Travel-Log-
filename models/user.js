@@ -74,6 +74,25 @@ userSchema.static(
   }
 );
 
+userSchema.static("GenerateToken", async function (username, password, name) {
+  let user = await this.findOne({ Username: username });
+  if (!user) {
+    let profileImageURL = "/images/default.jpg";
+    await User.create({
+      Username: username,
+      password: password,
+      Name: name,
+      profileImageURL,
+    });
+    this.findOne({ username }).then((user) => {
+      const token = createTokenForUser(user);
+      return token;
+    });
+  }
+  const token = createTokenForUser(user);
+  return token;
+});
+
 userSchema.methods.generateOTP = function () {
   // Generate a random 6-digit OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString();

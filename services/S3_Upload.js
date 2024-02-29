@@ -27,6 +27,8 @@ async function uploadFileToS3(bucketName, file) {
   try {
     const data = await s3Client.send(new PutObjectCommand(uploadParams));
     console.log("File uploaded successfully:", data);
+    
+    deleteFile(file.path);
 
     return `https://${bucketName}.s3.amazonaws.com/${fileName}`;
   } catch (err) {

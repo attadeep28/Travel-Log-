@@ -23,12 +23,12 @@ describe("Post Routes", () => {
 
   describe("GET /viewpost/:id", () => {
     // it("should render post view with post and comments when post is found", async () => {
-    //   const findByIdStub = sinon.stub(Post, "findById");
+    //   const findByIdStub = sinon.stub(Post, "findById").resolves();
     //   findByIdStub.callsFake(() => ({
     //     populate: sinon.stub().callsFake(() => ({
     //       populate: sinon.stub().resolves({
     //         // Simulate the data you want to return
-    //         _id: "65d1eccd707b71f5ee866d2d",
+    //         _id: "65cdfd602674f1a8d5c537f7",
     //         title: "Test Post",
     //         body: "This is a test post",
     //         location: "Test Location",
@@ -41,7 +41,7 @@ describe("Post Routes", () => {
     //       }),
     //     })),
     //   }));
-    //   const res = await request.get("/viewpost/65c1f8ba5155856db9a5fb64");
+    //   const res = await request.get("/viewpost/65cdfd602674f1a8d5c537f7");
     //   expect(res.status).to.eql(200);
     // });
 
