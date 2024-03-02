@@ -1,6 +1,6 @@
 # Travel Log
  
-Visit: [http://13.51.79.102/](http://51.21.21.143/) (Ec2 for hosting)
+Visit: [http://51.21.21.143/](http://51.21.21.143/) (Ec2 for hosting)
  
 ## About
  
