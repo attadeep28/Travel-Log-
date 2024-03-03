@@ -1,6 +1,6 @@
 # Travel Log
  
-Visit: [Travel-Log](http://51.21.21.143/) (Ec2 for hosting)
+Visit: [Travel-Log](http://13.232.14.69/) (Ec2 for hosting)
  
 ## About
  
